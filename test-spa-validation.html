@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validación SPA - Suite de Aprendizaje</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 20px;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+        }
+        .validation-card {
+            margin-bottom: 20px;
+        }
+        .pass {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+        .fail {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">🧪 Validación de la Suite SPA</h1>
+        
+        <div class="section">
+            <h3>1. Verificación de Pantallas Principales</h3>
+            <div id="pantallas-validation"></div>
+        </div>
+
+        <div class="section">
+            <h3>2. Verificación de Pantallas del Quiz</h3>
+            <div id="quiz-validation"></div>
+        </div>
+
+        <div class="section">
+            <h3>3. Verificación de CSS</h3>
+            <div id="css-validation"></div>
+        </div>
+
+        <div class="section">
+            <h3>4. Verificación de Funciones JavaScript</h3>
+            <div id="js-validation"></div>
+        </div>
+
+        <div class="section">
+            <h3>5. Prueba Interactiva de Navegación</h3>
+            <div class="alert alert-info">
+                <p><strong>Instrucciones:</strong></p>
+                <ol>
+                    <li>Abre el archivo <code>index.html</code> en tu navegador</li>
+                    <li>Abre la consola (F12) para ver mensajes de depuración</li>
+                    <li>Prueba navegar entre las pantallas usando el navbar</li>
+                    <li>Verifica que:
+                        <ul>
+                            <li>✅ Solo una pantalla es visible a la vez</li>
+                            <li>✅ Al hacer clic en "Evaluación", se muestra solo la selección de niveles</li>
+                            <li>✅ Al hacer clic en "Comenzar Test", se muestra la pantalla de preguntas</li>
+                            <li>✅ Al completar el quiz, se muestra la pantalla de resultados</li>
+                            <li>✅ Al hacer clic en "Volver a Evaluación", vuelve a la selección de niveles</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Validar que el archivo index.html exista y contenga los IDs correctos
+        // Esta es una validación básica que se puede mejorar
+
+        const validaciones = {
+            pantallasEsperadas: ['pantalla-biblioteca', 'pantalla-practica', 'pantalla-evaluacion', 'pantalla-progreso'],
+            pantallasQuizEsperadas: ['quiz-start-screen', 'quiz-game-screen', 'quiz-result-screen'],
+            funcionesEsperadas: ['mostrarPantalla', 'resetearEvaluacion', 'iniciarJuego', 'reiniciarJuego', 'salirJuego'],
+            idsEsperados: ['quiz-start-btn', 'continue-btn', 'verify-btn', 'reset-btn', 'clear-data-btn']
+        };
+
+        function crearCard(id, titulo, pasada) {
+            const html = `
+                <div class="card validation-card ${pasada ? 'pass' : 'fail'} border">
+                    <div class="card-body">
+                        <h5 class="card-title">${pasada ? '✅' : '❌'} ${titulo}</h5>
+                    </div>
+                </div>
+            `;
+            document.getElementById(id).innerHTML += html;
+        }
+
+        // Validación de pantallas principales
+        const pantallasDiv = document.getElementById('pantallas-validation');
+        validaciones.pantallasEsperadas.forEach(pantalla => {
+            const existe = document.getElementById(pantalla) !== null;
+            pantallasDiv.innerHTML += `<div class="alert ${existe ? 'alert-success' : 'alert-danger'}">
+                ${existe ? '✅' : '❌'} Pantalla: <code>${pantalla}</code> ${existe ? 'encontrada' : 'NO ENCONTRADA'}
+            </div>`;
+        });
+
+        // Validación de pantallas del quiz
+        const quizDiv = document.getElementById('quiz-validation');
+        validaciones.pantallasQuizEsperadas.forEach(pantalla => {
+            const existe = document.getElementById(pantalla) !== null;
+            quizDiv.innerHTML += `<div class="alert ${existe ? 'alert-success' : 'alert-danger'}">
+                ${existe ? '✅' : '❌'} Pantalla Quiz: <code>${pantalla}</code> ${existe ? 'encontrada' : 'NO ENCONTRADA'}
+            </div>`;
+        });
+
+        // Validación de CSS
+        const cssDiv = document.getElementById('css-validation');
+        const estilosEsperados = ['.pantalla', '.pantalla.active', '.quiz-screen', '.quiz-screen.active'];
+        cssDiv.innerHTML += `<div class="alert alert-info">
+            ✓ Verifica en el archivo <code>css/styles.css</code> que existan las clases: <code>${estilosEsperados.join(', ')}</code>
+        </div>`;
+
+        // Validación de funciones JavaScript
+        const jsDiv = document.getElementById('js-validation');
+        validaciones.funcionesEsperadas.forEach(funcion => {
+            const existe = typeof window[funcion] === 'function';
+            jsDiv.innerHTML += `<div class="alert ${existe ? 'alert-success' : 'alert-danger'}">
+                ${existe ? '✅' : '❌'} Función: <code>${funcion}()</code> ${existe ? 'encontrada' : 'NO ENCONTRADA'}
+            </div>`;
+        });
+
+        console.log('✓ Página de validación cargada. Abre index.html para probar la aplicación.');
+    </script>
+</body>
+</html>

@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suite de Aprendizaje - Signos de Puntuación</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts: Merriweather (headings) + Lato (body) -->
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;800&family=Lato:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader" class="preloader">
+        <div class="preloader-content">
+            <div class="spinner"></div>
+            <p class="preloader-text">⏳ Cargando Suite de Aprendizaje...</p>
+        </div>
+    </div>
+
+    <!-- Navbar de Navegación -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top shadow-sm">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="#" onclick="mostrarPantalla('biblioteca'); return false;">
+                <span class="me-2">⁋</span>Maestro de Puntuación
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="mostrarPantalla('biblioteca'); return false;">📚 Biblioteca</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="mostrarPantalla('practica'); return false;">✏️ Práctica</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="resetearEvaluacion(); mostrarPantalla('evaluacion'); return false;">📝 Evaluación</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="mostrarPantalla('progreso'); return false;">📊 Progreso</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="app-container">
+        <!-- PANTALLA 1: BIBLIOTECA (TEORÍA) -->
+        <div id="pantalla-biblioteca" class="pantalla active">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-lg-10 mx-auto">
+                        <h1 class="display-4 fw-bold mb-4">📚 Biblioteca de Signos de Puntuación</h1>
+                        <p class="lead text-muted mb-5">Consulta las reglas y ejemplos de cada signo de puntuación del español.</p>
+                        
+                        <!-- Grid of cards for Biblioteca using Bootstrap grid & card classes -->
+                        <div class="bib-grid row g-4" id="bibliotecaGrid">
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                <div class="card bib-card h-100 rounded-4" data-key="punto">
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title bib-card-title">1. El Punto (.)</h5>
+                                        <p class="card-text card-text-short">Marca el final de una oración.</p>
+                                        <div class="mt-auto d-grid gap-0">
+                                            <button class="btn btn-sm btn-primary explorar-btn btn-compact">Explorar</button>
+                                        </div>
+                                        <div class="bib-card-body d-none mt-3" data-content>
+                                            <h5>📌 Regla:</h5>
+                                            <p>El punto marca el final de una oración. Se usa para separar oraciones completas en un texto.</p>
+                                            <h5>🧭 Tipos de Punto:</h5>
+                                            <ul>
+                                                <li><strong>Punto seguido:</strong> Separa dos oraciones que continúan en el mismo párrafo.</li>
+                                                <li><strong>Punto y aparte:</strong> Separa dos párrafos completos.</li>
+                                                <li><strong>Punto final:</strong> Cierra el texto.</li>
+                                            </ul>
+                                            <h5>💡 Ejemplos:</h5>
+                                            <div class="bg-light p-3 rounded">
+                                                <p><em>"María estudia medicina. Su hermano estudia ingeniería."</em> (Punto seguido)</p>
+                                                <p><em>"El invierno es frío y nevado.</em></p>
+                                                <p><em>La primavera trae flores y colores alegres."</em> (Punto y aparte)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                <div class="card bib-card h-100 rounded-4" data-key="coma">
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title bib-card-title">2. La Coma (,)</h5>
+                                        <p class="card-text card-text-short">Pausa breve que separa elementos.</p>
+                                        <div class="mt-auto d-grid gap-0">
+                                            <button class="btn btn-sm btn-primary explorar-btn btn-compact">Explorar</button>
+                                        </div>
+                                        <div class="bib-card-body d-none mt-3" data-content>
+                                            <h5>📌 Regla:</h5>
+                                            <p>La coma marca una pausa breve en la oración. Separa elementos en una serie o introduce pausas.</p>
+                                            <h5>🔧 Principales Usos:</h5>
+                                            <ul>
+                                                <li><strong>En enumeraciones:</strong> Separa elementos de una lista.</li>
+                                                <li><strong>En vocativos:</strong> Separa el nombre de la persona a quien se dirige la palabra.</li>
+                                                <li><strong>Antes de conjunciones:</strong> "pero", "mas", "sino".</li>
+                                                <li><strong>En aposiciones:</strong> Separa una aclaración insertada en la oración.</li>
+                                            </ul>
+                                            <h5>💡 Ejemplos:</h5>
+                                            <div class="bg-light p-3 rounded">
+                                                <p><em>"Compré pan, queso, jamón y leche."</em> (Enumeración)</p>
+                                                <p><em>"Juan, ¿cómo estás?"</em> (Vocativo)</p>
+                                                <p><em>"Quería ir al cine, pero no tenía dinero."</em> (Conjunción)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                <div class="card bib-card h-100 rounded-4" data-key="puntocoma">
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title bib-card-title">3. El Punto y Coma (;)</h5>
+                                        <p class="card-text card-text-short">Pausa mayor que la coma.</p>
+                                        <div class="mt-auto d-grid gap-0">
+                                            <button class="btn btn-sm btn-primary explorar-btn btn-compact">Explorar</button>
+                                        </div>
+                                        <div class="bib-card-body d-none mt-3" data-content>
+                                            <h5>📌 Regla:</h5>
+                                            <p>El punto y coma marca una pausa más larga que la coma pero más breve que el punto. Separa oraciones relacionadas.</p>
+                                            <h5>🔧 Usos Principales:</h5>
+                                            <ul>
+                                                <li><strong>Entre oraciones:</strong> Cuando tienen relación temática pero son independientes.</li>
+                                                <li><strong>En enumeraciones complejas:</strong> Cuando los elementos ya contienen comas.</li>
+                                                <li><strong>Antes de adverbios conectivos:</strong> "por lo tanto", "sin embargo", "además".</li>
+                                            </ul>
+                                            <h5>💡 Ejemplos:</h5>
+                                            <div class="bg-light p-3 rounded">
+                                                <p><em>"El cielo estaba nublado; la lluvia era inminente."</em></p>
+                                                <p><em>"Los que vinieron tarde; los que llegaron a tiempo; todos se fueron juntos."</em></p>
+                                                <p><em>"Estudió durante horas; sin embargo, no aprobó el examen."</em></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                <div class="card bib-card h-100 rounded-4" data-key="dospuntos">
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title bib-card-title">4. Los Dos Puntos (:)</h5>
+                                        <p class="card-text card-text-short">Anuncian una explicación o lista.</p>
+                                        <div class="mt-auto d-grid gap-0">
+                                            <button class="btn btn-sm btn-primary explorar-btn btn-compact">Explorar</button>
+                                        </div>
+                                        <div class="bib-card-body d-none mt-3" data-content>
+                                            <h5>📌 Regla:</h5>
+                                            <p>Los dos puntos anuncian algo que sigue (cita, explicación, enumeración, etc.)</p>
+                                            <h5>🔧 Usos Principales:</h5>
+                                            <ul>
+                                                <li><strong>Antes de citas textuales:</strong> Introduce una frase textual.</li>
+                                                <li><strong>Antes de enumeraciones:</strong> Introduce una lista.</li>
+                                                <li><strong>Antes de explicaciones:</strong> Introduce una aclaración.</li>
+                                                <li><strong>En saludos:</strong> "Estimado señor:"</li>
+                                            </ul>
+                                            <h5>💡 Ejemplos:</h5>
+                                            <div class="bg-light p-3 rounded">
+                                                <p><em>"La consejera dijo: \"Debes estudiar más\"."</em> (Cita)</p>
+                                                <p><em>"Necesitas lo siguiente: lápiz, papel y borrador."</em> (Enumeración)</p>
+                                                <p><em>"Hay una razón: no quiero discutir más."</em> (Explicación)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                <div class="card bib-card h-100 rounded-4" data-key="comillas">
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title bib-card-title">5. Las Comillas ("")</h5>
+                                        <p class="card-text card-text-short">Enmarcan diálogos y citas.</p>
+                                        <div class="mt-auto d-grid gap-0">
+                                            <button class="btn btn-sm btn-primary explorar-btn btn-compact">Explorar</button>
+                                        </div>
+                                        <div class="bib-card-body d-none mt-3" data-content>
+                                            <h5>📌 Regla:</h5>
+                                            <p>Las comillas enmarcan citas textuales, palabras especiales o títulos breves.</p>
+                                            <h5>🔧 Usos Principales:</h5>
+                                            <ul>
+                                                <li><strong>Citas textuales:</strong> Reproducen exactamente las palabras de alguien.</li>
+                                                <li><strong>Palabras especiales:</strong> Destacan palabras irónicas, extranjeras o poco comunes.</li>
+                                                <li><strong>Títulos breves:</strong> Títulos de artículos, poemas cortos.</li>
+                                            </ul>
+                                            <h5>💡 Ejemplos:</h5>
+                                            <div class="bg-light p-3 rounded">
+                                                <p><em>Ella preguntó: "¿A qué hora llegará?"</em> (Cita)</p>
+                                                <p><em>Dijo que era una idea "revolucionaria".</em> (Palabra irónica)</p>
+                                                <p><em>Leyó el poema "La mariposa".</em> (Título breve)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                <div class="card bib-card h-100 rounded-4" data-key="parentesis">
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title bib-card-title">6. El Paréntesis ( )</h5>
+                                        <p class="card-text card-text-short">Aísla información adicional o aclaratoria.</p>
+                                        <div class="mt-auto d-grid gap-0">
+                                            <button class="btn btn-sm btn-primary explorar-btn btn-compact">Explorar</button>
+                                        </div>
+                                        <div class="bib-card-body d-none mt-3" data-content>
+                                            <h5>📌 Regla:</h5>
+                                            <p>Los paréntesis encierran información adicional o aclaratoria que se puede omitir sin que la oración pierda sentido.</p>
+                                            <h5>🔧 Usos Principales:</h5>
+                                            <ul>
+                                                <li><strong>Aclaraciones:</strong> Explican o amplían un concepto.</li>
+                                                <li><strong>Fechas:</strong> Incluyen años o fechas importantes.</li>
+                                                <li><strong>Iniciales:</strong> Abreviaturas o siglas.</li>
+                                            </ul>
+                                            <h5>💡 Ejemplos:</h5>
+                                            <div class="bg-light p-3 rounded">
+                                                <p><em>"La capital de Francia (París) es hermosa."</em></p>
+                                                <p><em>"Nació en 1990 (siglo XX)."</em></p>
+                                                <p><em>"La ONU (Organización de Naciones Unidas) trabaja por la paz."</em></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                <div class="card bib-card h-100 rounded-4" data-key="exclamacion">
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title bib-card-title">7. El Signo de Exclamación (!)</h5>
+                                        <p class="card-text card-text-short">Expresa emociones y sorpresas.</p>
+                                        <div class="mt-auto d-grid gap-0">
+                                            <button class="btn btn-sm btn-primary explorar-btn btn-compact">Explorar</button>
+                                        </div>
+                                        <div class="bib-card-body d-none mt-3" data-content>
+                                            <h5>📌 Regla:</h5>
+                                            <p>El signo de exclamación expresa emoción, sorpresa, dolor, entusiasmo, etc.</p>
+                                            <h5>🔧 Usos Principales:</h5>
+                                            <ul>
+                                                <li><strong>Expresar emociones:</strong> Alegría, sorpresa, dolor.</li>
+                                                <li><strong>Órdenes:</strong> Expresan órdenes con énfasis.</li>
+                                                <li><strong>Interjecciones:</strong> Palabras que expresan sentimientos.</li>
+                                            </ul>
+                                            <h5>💡 Ejemplos:</h5>
+                                            <div class="bg-light p-3 rounded">
+                                                <p><em>"¡Qué hermoso día!"</em> (Emoción)</p>
+                                                <p><em>"¡Cuidado con el coche!"</em> (Orden/Advertencia)</p>
+                                                <p><em>"¡Ay, me duele!"</em> (Interjección)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                <div class="card bib-card h-100 rounded-4" data-key="interrogacion">
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title bib-card-title">8. El Signo de Interrogación (?)</h5>
+                                        <p class="card-text card-text-short">Marca preguntas directas e indirectas.</p>
+                                        <div class="mt-auto d-grid gap-0">
+                                            <button class="btn btn-sm btn-primary explorar-btn btn-compact">Explorar</button>
+                                        </div>
+                                        <div class="bib-card-body d-none mt-3" data-content>
+                                            <h5>📌 Regla:</h5>
+                                            <p>El signo de interrogación marca una pregunta. En español se coloca al inicio y final de la pregunta.</p>
+                                            <h5>🔧 Usos Principales:</h5>
+                                            <ul>
+                                                <li><strong>Preguntas directas:</strong> Expresan una pregunta clara.</li>
+                                                <li><strong>Preguntas retóricas:</strong> Preguntas que no esperan respuesta.</li>
+                                                <li><strong>Duda:</strong> Expresan incertidumbre.</li>
+                                            </ul>
+                                            <h5>💡 Ejemplos:</h5>
+                                            <div class="bg-light p-3 rounded">
+                                                <p><em>"¿Dónde estabas ayer?"</em> (Pregunta directa)</p>
+                                                <p><em>"¿No te parece hermoso?"</em> (Pregunta retórica)</p>
+                                                <p><em>"¿Virá a la reunión? No estoy seguro."</em> (Duda)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANTALLA 2: PRÁCTICA (DRAG & DROP) -->
+        <div id="pantalla-practica" class="pantalla">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-lg-10 mx-auto">
+                        <h1 class="display-4 fw-bold mb-4">✏️ Taller de Práctica - Arrastra y suelta</h1>
+                        <p class="lead text-muted mb-5">Arrastra los signos de puntuación a los espacios en blanco para completar correctamente las oraciones.</p>
+
+                        <!-- Instrucciones -->
+                        <div class="alert alert-info mb-5">
+                            <strong>📌 Instrucciones:</strong> 
+                            <br><span class="d-none d-md-inline">Selecciona un signo de la caja de herramientas y arrástralo al espacio en blanco donde corresponda.</span>
+                            <span class="d-inline d-md-none">Toca un signo y sin soltar, arrastra tu dedo al espacio en blanco. Suelta para colocarlo.</span>
+                        </div>
+
+                        <!-- Caja de Herramientas -->
+                        <div class="mb-5 p-4 bg-light rounded border-2" style="border-color: #2563eb;">
+                            <h5 class="mb-3 fw-bold">🛠️ Signos Disponibles (Arrastra uno):</h5>
+                            <div id="toolbox" class="d-flex flex-wrap gap-2">
+                                <div class="signo-draggable" draggable="true" data-signo=".">
+                                    <div class="signo-label">Punto</div>
+                                    <div class="signo-symbol">.</div>
+                                </div>
+                                <div class="signo-draggable" draggable="true" data-signo=",">
+                                    <div class="signo-label">Coma</div>
+                                    <div class="signo-symbol">,</div>
+                                </div>
+                                <div class="signo-draggable" draggable="true" data-signo=";">
+                                    <div class="signo-label">Punto y Coma</div>
+                                    <div class="signo-symbol">;</div>
+                                </div>
+                                <div class="signo-draggable" draggable="true" data-signo=":">
+                                    <div class="signo-label">Dos Puntos</div>
+                                    <div class="signo-symbol">:</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ejercicio de Práctica -->
+                        <div class="mb-5 p-5 bg-white border rounded shadow-sm">
+                            <h5 class="mb-4 fw-bold">✍️ Completa las oraciones con los signos correctos:</h5>
+                            
+                            <!-- Oración 1 -->
+                            <div class="sentence-item mb-4">
+                                <div class="sentence-number">1.</div>
+                                <div class="sentence-text">
+                                    Mi hermana vive en Madrid<span class="drop-zone" data-correct=".">____</span>
+                                </div>
+                            </div>
+
+                            <!-- Oración 2 -->
+                            <div class="sentence-item mb-4">
+                                <div class="sentence-number">2.</div>
+                                <div class="sentence-text">
+                                    Para preparar un café necesitas<span class="drop-zone" data-correct=":">____</span> agua caliente<span class="drop-zone" data-correct=",">____</span> café molido y una taza<span class="drop-zone" data-correct=".">____</span>
+                                </div>
+                            </div>
+
+                            <!-- Oración 3 -->
+                            <div class="sentence-item mb-4">
+                                <div class="sentence-number">3.</div>
+                                <div class="sentence-text">
+                                    El viaje fue largo<span class="drop-zone" data-correct=";">____</span> sin embargo<span class="drop-zone" data-correct=",">____</span> muy divertido<span class="drop-zone" data-correct=".">____</span>
+                                </div>
+                            </div>
+
+                            <!-- Oración 4 -->
+                            <div class="sentence-item mb-4">
+                                <div class="sentence-number">4.</div>
+                                <div class="sentence-text">
+                                    Los ingredientes son<span class="drop-zone" data-correct=":">____</span> harina<span class="drop-zone" data-correct=",">____</span> huevos<span class="drop-zone" data-correct=",">____</span> azúcar y mantequilla<span class="drop-zone" data-correct=".">____</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Botones de Acción -->
+                        <div class="d-flex gap-3 justify-content-center mb-4 flex-wrap">
+                            <button id="verify-btn" class="btn btn-success btn-lg px-5">✓ Verificar Respuestas</button>
+                            <button id="reset-btn" class="btn btn-warning btn-lg px-5">↻ Reiniciar Ejercicio</button>
+                        </div>
+
+                        <!-- Retroalimentación -->
+                        <div id="feedback-practica" class="alert d-none" role="alert"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANTALLA 3: EVALUACIÓN (QUIZ) -->
+        <div id="pantalla-evaluacion" class="pantalla">
+            <div id="quiz-container">
+                <!-- PANTALLA DE INICIO DEL QUIZ -->
+                <div id="quiz-start-screen" class="quiz-screen active">
+                    <div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center">
+                        <div class="welcome-content text-center">
+                            <div class="logo mb-4">⁋</div>
+                            <h1 class="display-3 fw-bold mb-3">Evaluación</h1>
+                            <p class="subtitle fs-5 text-muted mb-5">Demuestra tus conocimientos en puntuación</p>
+                            
+                            <div class="level-selector mb-5">
+                                <h3 class="mb-4">Selecciona el nivel:</h3>
+                                <div class="level-buttons row g-3 justify-content-center">
+                                    <div class="col-12 col-sm-6 col-md-4">
+                                        <button class="level-btn btn btn-outline-primary w-100 py-3" data-level="basico">
+                                            <div class="level-name fw-bold">🟢 Básico</div>
+                                            <small class="level-desc text-muted d-block">5 preguntas</small>
+                                        </button>
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-md-4">
+                                        <button class="level-btn btn btn-outline-primary w-100 py-3" data-level="intermedio">
+                                            <div class="level-name fw-bold">🔵 Intermedio</div>
+                                            <small class="level-desc text-muted d-block">10 preguntas</small>
+                                        </button>
+                                    </div>
+                                    <div class="col-12 col-sm-6 col-md-4">
+                                        <button class="level-btn btn btn-outline-primary w-100 py-3" data-level="avanzado">
+                                            <div class="level-name fw-bold">🔴 Avanzado</div>
+                                            <small class="level-desc text-muted d-block">15 preguntas</small>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <button id="quiz-start-btn" class="btn btn-primary btn-lg px-5 py-3" disabled>Comenzar Test ▶</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANTALLA DE JUEGO DEL QUIZ -->
+                <div id="quiz-game-screen" class="quiz-screen">
+                    <div class="container-fluid py-4">
+                        <div class="game-header mb-4">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <div class="game-info d-flex justify-content-around flex-wrap gap-3 mb-3">
+                                        <div class="info-item text-center">
+                                            <span class="label d-block text-muted small">Pregunta</span>
+                                            <span id="current-question" class="value fs-4 fw-bold">1</span>
+                                        </div>
+                                        <div class="info-item text-center">
+                                            <span class="label d-block text-muted small">Aciertos</span>
+                                            <span id="current-score" class="value fs-4 fw-bold text-success">0</span>
+                                        </div>
+                                        <div class="info-item text-center">
+                                            <span class="label d-block text-muted small">Racha</span>
+                                            <span id="streak" class="value fs-4 fw-bold text-warning">0</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="d-flex align-items-center justify-content-end gap-3">
+                                        <div class="progress-container flex-grow-1 me-2" style="min-width:180px;">
+                                            <div class="progress" style="height: 25px;">
+                                                <div id="progress-fill" class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                            <span id="progress-text" class="progress-text small mt-1 d-block text-end">0%</span>
+                                        </div>
+                                        <div class="header-controls d-flex align-items-center" style="white-space:nowrap;">
+                                            <button id="sound-toggle-btn" class="btn btn-sm btn-outline-secondary me-1" aria-pressed="false" title="Sonido">🔊</button>
+                                            <button id="auto-advance-btn" class="btn btn-sm btn-outline-secondary" aria-pressed="true" title="Desplazamiento automático">🔁</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="game-content card shadow-lg p-5 mb-4">
+                            <div class="question-section mb-4">
+                                <span id="question-type" class="badge bg-info mb-3">✍️ Ortografía</span>
+                                <h2 id="question-text" class="question-text h3 fw-bold">Pregunta aquí...</h2>
+                            </div>
+
+                            <div id="options-container" class="options-container row g-3 mb-4">
+                            </div>
+
+                            <div id="feedback" class="feedback-msg hidden mb-0" role="alert">
+                                <div id="feedback-result" class="feedback-result"></div>
+                                <div id="feedback-explanation" class="feedback-explanation hidden"></div>
+                            </div>
+                        </div>
+
+                        <div class="d-flex flex-column flex-sm-row gap-2 justify-content-center align-items-center flex-wrap">
+                            <button id="continue-btn" class="btn btn-primary d-none" style="min-width:140px;">Continuar ▶</button>
+                            <small id="auto-adv-msg" class="text-muted d-none" style="white-space:normal; text-align:center; width:100%;">🔁 Activado: las preguntas avanzan automáticamente</small>
+                            <button class="btn btn-outline-danger" onclick="salirJuego()" style="min-width:100px;">⛔ Salir</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PANTALLA DE RESULTADOS DEL QUIZ -->
+                <div id="quiz-result-screen" class="quiz-screen">
+                    <div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center py-5">
+                        <div class="result-content text-center" style="max-width: 600px;">
+                            <div class="result-badge mb-4">
+                                <span id="result-emoji" class="display-1">🎉</span>
+                            </div>
+
+                            <h2 id="result-title" class="display-5 fw-bold mb-4">¡Excelente trabajo!</h2>
+                            
+                            <div class="result-stats row g-3 mb-4">
+                                <div class="col-md-4">
+                                    <div class="stat-box card shadow-sm h-100 d-flex flex-column justify-content-center p-4">
+                                        <span class="stat-label text-muted small mb-2">🏁 Puntaje Final</span>
+                                        <span class="stat-value fs-3 fw-bold text-primary" id="score-final">0</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="stat-box card shadow-sm h-100 d-flex flex-column justify-content-center p-4">
+                                        <span class="stat-label text-muted small mb-2">📊 Porcentaje</span>
+                                        <span class="stat-value fs-3 fw-bold text-success" id="percentage-final">0%</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="stat-box card shadow-sm h-100 d-flex flex-column justify-content-center p-4">
+                                        <span class="stat-label text-muted small mb-2">🔥 Mejor Racha</span>
+                                        <span class="stat-value fs-3 fw-bold text-warning" id="best-streak">0</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p id="mensaje-final" class="lead text-muted mb-4"></p>
+
+                            <div class="result-buttons d-grid gap-2 d-sm-flex justify-content-sm-center">
+                                <button class="btn btn-primary btn-lg" onclick="reiniciarJuego()">↺ Intentar de Nuevo</button>
+                                <button class="btn btn-outline-secondary btn-lg" onclick="volverInicioQuiz()">📝 Volver a Evaluación</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANTALLA 4: PROGRESO (ESTADÍSTICAS) -->
+        <div id="pantalla-progreso" class="pantalla">
+            <div class="container py-5">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="display-4 fw-bold mb-4">📊 Tu Progreso y Estadísticas</h1>
+                        <p class="lead text-muted mb-5">Sigue tu evolución en los quizzes realizados.</p>
+
+                        <!-- Tarjetas de Estadísticas -->
+                        <div class="row g-4 mb-5">
+                            <div class="col-md-6 col-lg-3">
+                                <div class="card shadow-sm h-100 text-center">
+                                    <div class="card-body">
+                                        <h6 class="card-title text-muted">🏆 Mejor Puntaje</h6>
+                                        <p class="card-text display-5 fw-bold text-primary" id="stat-best-score">-</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <div class="card shadow-sm h-100 text-center">
+                                    <div class="card-body">
+                                        <h6 class="card-title text-muted">📈 Promedio</h6>
+                                        <p class="card-text display-5 fw-bold text-success" id="stat-avg-score">-</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <div class="card shadow-sm h-100 text-center">
+                                    <div class="card-body">
+                                        <h6 class="card-title text-muted">⭐ Nivel Favorito</h6>
+                                        <p class="card-text display-5 fw-bold text-warning" id="stat-fav-level">-</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <div class="card shadow-sm h-100 text-center">
+                                    <div class="card-body">
+                                        <h6 class="card-title text-muted">📋 Total Realizados</h6>
+                                        <p class="card-text display-5 fw-bold text-info" id="stat-total-quizzes">-</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Gráfico de Evolución -->
+                        <div class="row">
+                            <div class="col-lg-10 mx-auto">
+                                <div class="card shadow-sm">
+                                    <div class="card-body">
+                                        <h5 class="card-title">📉 Evolución de Puntajes</h5>
+                                        <canvas id="grafico-evolucion" style="max-height: 400px;"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Botón Limpiar Datos -->
+                        <div class="text-center mt-5">
+                            <button id="clear-data-btn" class="btn btn-outline-danger">🗑️ Limpiar Datos de Progreso</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/questions.js"></script>
+    <script src="js/sounds.js"></script>
+    <script src="js/suite-nav.js"></script>
+    <script src="js/practica.js"></script>
+    <script src="js/progreso.js"></script>
+    <script src="js/chart.min.js"></script>
+    <script src="js/main.js"></script>
+    
+    <script>
+        // Inicialización de la Suite
+        document.addEventListener('DOMContentLoaded', async () => {
+            await cargarPreguntas();
+            await initializeGame();
+            initializePractica();
+            initializeProgreso();
+            console.log('✓ Suite de Aprendizaje cargada correctamente');
+            
+            // Hide preloader
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                preloader.classList.add('hidden');
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                }, 500);
+            }
+
+            // Biblioteca: abrir tarjeta como mini-ventana emergente
+            const bibGrid = document.getElementById('bibliotecaGrid');
+            function openBibPopup(htmlContent, title) {
+                // evitar múltiples overlays
+                closeBibPopup();
+
+                const overlay = document.createElement('div');
+                overlay.className = 'bib-overlay';
+
+                const popup = document.createElement('div');
+                popup.className = 'bib-popup';
+
+                const closeBtn = document.createElement('button');
+                closeBtn.className = 'bib-close-btn';
+                closeBtn.setAttribute('aria-label', 'Cerrar');
+                closeBtn.innerHTML = '✕';
+                closeBtn.addEventListener('click', closeBibPopup);
+
+                const header = document.createElement('h3');
+                header.className = 'mb-3';
+                header.textContent = title || '';
+
+                const contentWrap = document.createElement('div');
+                contentWrap.className = 'bib-popup-content';
+                contentWrap.innerHTML = htmlContent || '';
+
+                popup.appendChild(closeBtn);
+                popup.appendChild(header);
+                popup.appendChild(contentWrap);
+                overlay.appendChild(popup);
+
+                // Cerrar al pulsar fuera del popup
+                overlay.addEventListener('click', (ev) => {
+                    if (ev.target === overlay) closeBibPopup();
+                });
+
+                // Cerrar con ESC
+                function onKey(e) {
+                    if (e.key === 'Escape') closeBibPopup();
+                }
+
+                document.addEventListener('keydown', onKey);
+
+                // Guardar handler para remover
+                overlay._onKey = onKey;
+
+                document.body.appendChild(overlay);
+                // focus en close para accesibilidad
+                closeBtn.focus();
+            }
+
+            function closeBibPopup() {
+                const existing = document.querySelector('.bib-overlay');
+                if (existing) {
+                    const onKey = existing._onKey;
+                    if (onKey) document.removeEventListener('keydown', onKey);
+                    existing.remove();
+                }
+            }
+
+            if (bibGrid) {
+                const desktopQuery = window.matchMedia('(min-width: 992px)');
+
+                bibGrid.addEventListener('click', (ev) => {
+                    const btn = ev.target.closest('.explorar-btn');
+                    if (!btn) return; // only handle explorar clicks
+                    const card = btn.closest('.bib-card');
+                    if (!card) return;
+                    const contentEl = card.querySelector('[data-content]');
+                    const titleEl = card.querySelector('.bib-card-title');
+                    const html = contentEl ? contentEl.innerHTML : '';
+                    const title = titleEl ? titleEl.textContent : '';
+
+                    // If we're on desktop and Bootstrap Popover is available, use popover
+                    if (desktopQuery.matches && window.bootstrap && window.bootstrap.Popover) {
+                        // Dispose other popovers first
+                        document.querySelectorAll('.explorar-btn').forEach(b => {
+                            if (b !== btn) {
+                                const inst = window.bootstrap.Popover.getInstance(b);
+                                if (inst) inst.dispose();
+                            }
+                        });
+
+                        // Remove existing backdrop
+                        const existingBackdrop = document.querySelector('.popover-backdrop');
+                        if (existingBackdrop) existingBackdrop.remove();
+
+                        let pop = window.bootstrap.Popover.getInstance(btn);
+                        if (!pop) {
+                            pop = new window.bootstrap.Popover(btn, {
+                                html: true,
+                                content: html,
+                                title: title,
+                                container: 'body',
+                                trigger: 'focus',
+                                placement: 'auto'
+                            });
+                        } else {
+                            // update content if reusing instance
+                            btn.setAttribute('data-bs-content', html);
+                        }
+                        // focus so popover will show when using trigger 'focus'
+                        btn.focus();
+                        pop.show();
+
+                        // Add backdrop div after popover is shown
+                        setTimeout(() => {
+                            const backdrop = document.createElement('div');
+                            backdrop.className = 'popover-backdrop';
+                            document.body.appendChild(backdrop);
+
+                            // Handle backdrop click to close popover
+                            backdrop.addEventListener('click', () => {
+                                if (pop) pop.dispose();
+                                backdrop.remove();
+                            });
+
+                            // Also set up handler for when popover is hidden (e.g., via Escape key)
+                            const popoverEl = document.querySelector('.popover');
+                            if (popoverEl) {
+                                popoverEl.addEventListener('hidden.bs.popover', () => {
+                                    const bd = document.querySelector('.popover-backdrop');
+                                    if (bd) bd.remove();
+                                }, { once: true });
+                            }
+                        }, 100);
+                    } else {
+                        // Mobile / fallback: open overlay popup
+                        openBibPopup(html, title);
+                    }
+                });
+
+                // When resizing from desktop to mobile, dispose all popovers
+                window.addEventListener('resize', () => {
+                    if (!desktopQuery.matches && window.bootstrap && window.bootstrap.Popover) {
+                        document.querySelectorAll('.explorar-btn').forEach(b => {
+                            const inst = window.bootstrap.Popover.getInstance(b);
+                            if (inst) inst.dispose();
+                        });
+                        // Also remove backdrop if exists
+                        const backdrop = document.querySelector('.popover-backdrop');
+                        if (backdrop) backdrop.remove();
+                    }
+                });
+            }
+        });
+
+        // Función auxiliar para volver a la pantalla de inicio del quiz
+        function volverInicioQuiz() {
+            const startScreen = document.getElementById('quiz-start-screen');
+            const gameScreen = document.getElementById('quiz-game-screen');
+            const resultScreen = document.getElementById('quiz-result-screen');
+
+            startScreen.classList.add('active');
+            gameScreen.classList.remove('active');
+            resultScreen.classList.remove('active');
+
+            // Resetear niveles
+            document.querySelectorAll('.level-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('quiz-start-btn').disabled = true;
+        }
+    </script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maestro de Puntuación</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Preloader -->
+    <div id="preloader" class="preloader">
+            <div class="preloader-content">
+            <div class="spinner"></div>
+            <p class="preloader-text">⏳ Cargando...</p>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <!-- Audio control for start screen (fixed top-right) -->
+        <div id="start-screen-controls" class="start-screen-controls">
+            <button id="sound-toggle-btn-start" class="btn btn-sm btn-outline-secondary" aria-pressed="false" title="Sonido">🔊</button>
+        </div>
+
+        <!-- PANTALLA DE INICIO -->
+        <div id="start-screen" class="screen active">
+            <div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center">
+                <div class="welcome-content text-center">
+                    <div class="logo mb-4">⁋</div>
+                    <h1 class="display-3 fw-bold mb-3">Maestro de Puntuación</h1>
+                    <p class="subtitle fs-5 text-muted mb-5">Domina los signos de puntuación del español</p>
+                    
+                    <div class="level-selector mb-5">
+                        <h3 class="mb-4">Selecciona el nivel:</h3>
+                        <div class="level-buttons row g-3 justify-content-center">
+                            <div class="col-12 col-sm-6 col-md-4">
+                                <button class="level-btn btn btn-outline-primary w-100 py-3" data-level="basico">
+                                        <div class="level-name fw-bold">🟢 Básico</div>
+                                        <small class="level-desc text-muted d-block">5 preguntas</small>
+                                </button>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-4">
+                                <button class="level-btn btn btn-outline-primary w-100 py-3" data-level="intermedio">
+                                        <div class="level-name fw-bold">🔵 Intermedio</div>
+                                        <small class="level-desc text-muted d-block">10 preguntas</small>
+                                </button>
+                            </div>
+                            <div class="col-12 col-sm-6 col-md-4">
+                                <button class="level-btn btn btn-outline-primary w-100 py-3" data-level="avanzado">
+                                        <div class="level-name fw-bold">🔴 Avanzado</div>
+                                        <small class="level-desc text-muted d-block">15 preguntas</small>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button id="start-btn" class="btn btn-primary btn-lg px-5 py-3" onclick="iniciarJuego()" disabled>Comenzar Test ▶</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANTALLA DE JUEGO -->
+        <div id="game-screen" class="screen">
+            <div class="container-fluid py-4">
+                <div class="game-header mb-4">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="game-info d-flex justify-content-around flex-wrap gap-3 mb-3">
+                                <div class="info-item text-center">
+                                    <span class="label d-block text-muted small">Pregunta</span>
+                                    <span id="current-question" class="value fs-4 fw-bold">1</span>
+                                </div>
+                                <div class="info-item text-center">
+                                    <span class="label d-block text-muted small">Aciertos</span>
+                                    <span id="current-score" class="value fs-4 fw-bold text-success">0</span>
+                                </div>
+                                <div class="info-item text-center">
+                                    <span class="label d-block text-muted small">Racha</span>
+                                    <span id="streak" class="value fs-4 fw-bold text-warning">0</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="d-flex align-items-center justify-content-end gap-3">
+                                <div class="progress-container flex-grow-1 me-2" style="min-width:180px;">
+                                    <div class="progress" style="height: 25px;">
+                                        <div id="progress-fill" class="progress-bar bg-success" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                    </div>
+                                    <span id="progress-text" class="progress-text small mt-1 d-block text-end">0%</span>
+                                </div>
+                                <div class="header-controls d-flex align-items-center" style="white-space:nowrap;">
+                                    <button id="sound-toggle-btn" class="btn btn-sm btn-outline-secondary me-1" aria-pressed="false" title="Sonido">🔊</button>
+                                    <button id="auto-advance-btn" class="btn btn-sm btn-outline-secondary" aria-pressed="true" title="Desplazamiento automático">🔁</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="game-content card shadow-lg p-5 mb-4">
+                    <div class="question-section mb-4">
+                        <span id="question-type" class="badge bg-info mb-3">✍️ Ortografía</span>
+                        <h2 id="question-text" class="question-text h3 fw-bold">Pregunta aquí...</h2>
+                    </div>
+
+                    <div id="options-container" class="options-container row g-3 mb-4">
+                    </div>
+
+                        <div id="feedback" class="feedback-msg hidden mb-0" role="alert">
+                            <div id="feedback-result" class="feedback-result"></div>
+                            <div id="feedback-explanation" class="feedback-explanation hidden"></div>
+                        </div>
+                </div>
+
+                    <div class="d-flex flex-column flex-sm-row gap-2 justify-content-center align-items-center flex-wrap">
+                        <button id="continue-btn" class="btn btn-primary d-none" style="min-width:140px;">Continuar ▶</button>
+                        <small id="auto-adv-msg" class="text-muted d-none" style="white-space:normal; text-align:center; width:100%;">🔁 Activado: las preguntas avanzan automáticamente</small>
+                        <button class="btn btn-outline-danger" onclick="salirJuego()" style="min-width:100px;">⛔ Salir</button>
+                    </div>
+            </div>
+        </div>
+
+        <!-- PANTALLA DE RESULTADOS -->
+        <div id="result-screen" class="screen">
+            <div class="container-fluid min-vh-100 d-flex align-items-center justify-content-center py-5">
+                <div class="result-content text-center" style="max-width: 600px;">
+                    <div class="result-badge mb-4">
+                        <span id="result-emoji" class="display-1">🎉</span>
+                    </div>
+
+                    <h2 id="result-title" class="display-5 fw-bold mb-4">¡Excelente trabajo!</h2>
+                    
+                    <div class="result-stats row g-3 mb-4">
+                        <div class="col-md-4">
+                            <div class="stat-box card shadow-sm h-100 d-flex flex-column justify-content-center p-4">
+                                <span class="stat-label text-muted small mb-2">🏁 Puntaje Final</span>
+                                <span class="stat-value fs-3 fw-bold text-primary" id="score-final">0</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="stat-box card shadow-sm h-100 d-flex flex-column justify-content-center p-4">
+                                <span class="stat-label text-muted small mb-2">📊 Porcentaje</span>
+                                <span class="stat-value fs-3 fw-bold text-success" id="percentage-final">0%</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="stat-box card shadow-sm h-100 d-flex flex-column justify-content-center p-4">
+                                <span class="stat-label text-muted small mb-2">🔥 Mejor Racha</span>
+                                <span class="stat-value fs-3 fw-bold text-warning" id="best-streak">0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p id="mensaje-final" class="lead text-muted mb-4"></p>
+
+                    <div class="result-buttons d-grid gap-2 d-sm-flex justify-content-sm-center">
+                        <button class="btn btn-primary btn-lg" onclick="reiniciarJuego()">↺ Intentar de Nuevo</button>
+                        <button class="btn btn-outline-secondary btn-lg" onclick="volverInicio()">🏠 Volver al Inicio</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/questions.js"></script>
+    <script src="js/sounds.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // Initialize game controller - questions are already loaded from js/questions.js
+        document.addEventListener('DOMContentLoaded', async () => {
+            await cargarPreguntas();
+            await initializeGame();
+            console.log('✓ App ready: preguntas cargadas desde js/questions.js e inicializado');
+            
+            // Hide preloader with smooth transition
+            const preloader = document.getElementById('preloader');
+            if (preloader) {
+                preloader.classList.add('hidden');
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                }, 500);
+            }
+        });
+    </script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
